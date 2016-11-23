@@ -1,0 +1,7 @@
+<div *ngIf="numCalls === callsFinished">
+    <div class="row">
+        <div *ngFor="let header of headers; let i = index;" class="col-xs-6">
+            <stat-leader [players]="sortAndSlicePlayers(header)" [header]="header" [stat]="stats[i]"></stat-leader>
+        </div>
+    </div>
+</div>

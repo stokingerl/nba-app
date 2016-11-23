@@ -11,32 +11,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 require('rxjs/Rx');
-const team_service_1 = require('../../../services/team/team.service');
-const player_1 = require('../../../models/player');
-let RosterComponent = class RosterComponent {
-    constructor(teamService, router, route) {
-        this.teamService = teamService;
+const player_service_1 = require('../../services/player/player.service');
+const player_1 = require('../../models/player');
+const sort_players_pipe_1 = require('../players/players-list/list/sort-players.pipe');
+let DashboardComponent = class DashboardComponent {
+    constructor(playerService, router, route) {
+        this.playerService = playerService;
         this.router = router;
         this.route = route;
         this.players = new Array();
         this.numCalls = 2;
         this.callsFinished = 0;
-        this.headers = ['Name', 'PPG', 'RPG', 'APG', 'BPG', 'SPG'];
-        this.stats = ['ppg', 'rpg', 'apg', 'bpg', 'spg'];
+        this.headers = ['PPG', 'RPG', 'APG', 'BPG', 'SPG', 'FG%'];
+        this.stats = ['ppg', 'rpg', 'apg', 'bpg', 'spg', 'fgPercent'];
+        this.playerSorter = new sort_players_pipe_1.SortPlayersPipe();
     }
     ngOnInit() {
         this.getPlayers();
+    }
+    sortAndSlicePlayers(header) {
+        return this.playerSorter.transform(this.players, header).slice(0, 5);
     }
     getPlayers() {
         this.getAllPlayersDetails();
         this.getAllPlayerStats();
     }
     getAllPlayersDetails() {
-        this.teamService.getRoster(this.teamId)
+        this.playerService.getAllPlayerDetails()
             .subscribe(value => this.setPlayerDetails(value), error => console.log(error));
     }
     getAllPlayerStats() {
-        this.teamService.getAllPlayerStatsByTeam(this.teamId)
+        this.playerService.getAllPlayerStats()
             .subscribe(value => this.filterPlayerStats(value), error => console.log(error));
     }
     setPlayerDetails(playerDetails) {
@@ -67,18 +72,14 @@ let RosterComponent = class RosterComponent {
         this.callsFinished++;
     }
 };
-__decorate([
-    core_1.Input(), 
-    __metadata('design:type', Number)
-], RosterComponent.prototype, "teamId", void 0);
-RosterComponent = __decorate([
+DashboardComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'team-roster',
-        templateUrl: 'roster.component.html',
-        styleUrls: ['roster.component.css']
+        selector: 'player-dashboard',
+        templateUrl: 'dashboard.component.html',
+        styleUrls: ['dashboard.component.css']
     }), 
-    __metadata('design:paramtypes', [team_service_1.TeamService, router_1.Router, router_1.ActivatedRoute])
-], RosterComponent);
-exports.RosterComponent = RosterComponent;
-//# sourceMappingURL=roster.component.js.map
+    __metadata('design:paramtypes', [player_service_1.PlayerService, router_1.Router, router_1.ActivatedRoute])
+], DashboardComponent);
+exports.DashboardComponent = DashboardComponent;
+//# sourceMappingURL=dashboard.component.js.map

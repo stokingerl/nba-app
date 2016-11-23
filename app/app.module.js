@@ -20,6 +20,8 @@ const player_row_component_1 = require('./components/players/players-list/row/pl
 const players_list_component_1 = require('./components/players/players-list/list/players-list.component');
 const players_list_header_component_1 = require('./components/players/players-list/header/players-list-header.component');
 const navbar_component_1 = require('./components/navbar/navbar.component');
+const dashboard_component_1 = require('./components/dashboard/dashboard.component');
+const stat_leader_component_1 = require('./components/players/stat-leader/stat-leader.component');
 const filter_players_pipe_1 = require('./components/players/players-list/list/filter-players.pipe');
 const sort_players_pipe_1 = require('./components/players/players-list/list/sort-players.pipe');
 const team_service_1 = require('./services/team/team.service');
@@ -45,7 +47,9 @@ AppModule = __decorate([
             player_row_component_1.PlayerRowComponent,
             players_list_component_1.PlayersListComponent,
             players_list_header_component_1.PlayersListHeader,
-            navbar_component_1.NavbarComponent
+            navbar_component_1.NavbarComponent,
+            dashboard_component_1.DashboardComponent,
+            stat_leader_component_1.StatLeaderComponent
         ],
         providers: [
             team_service_1.TeamService,

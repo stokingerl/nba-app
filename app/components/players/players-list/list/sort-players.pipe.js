@@ -16,37 +16,47 @@ let SortPlayersPipe = class SortPlayersPipe {
         }
         switch (sortBy) {
             case 'Name':
-                players.sort(this.compareNames);
+                players.sort(this.compareStrings('lastName'));
                 break;
             case 'PPG':
-                players.sort(this.comparePPG);
+                players.sort(this.compareNums('ppg'));
                 break;
             case 'RPG':
-                players.sort(this.compareRPG);
+                players.sort(this.compareNums('rpg'));
                 break;
             case 'APG':
-                players.sort(this.compareAPG);
+                players.sort(this.compareNums('apg'));
+                break;
+            case 'BPG':
+                players.sort(this.compareNums('bpg'));
+                break;
+            case 'SPG':
+                players.sort(this.compareNums('spg'));
+                break;
+            case 'FG%':
+                players.sort(this.compareNums('fgPercent'));
+                break;
+            case '3P%':
+                players.sort(this.compareNums('tpPercent'));
                 break;
             default:
                 break;
         }
         return players;
     }
-    compareNames(a, b) {
-        if (a.lastName < b.lastName)
-            return -1;
-        if (a.lastName > b.lastName)
-            return 1;
-        return 0;
+    compareStrings(property) {
+        return function (a, b) {
+            if (a[property] < b[property])
+                return -1;
+            if (a[property] > b[property])
+                return 1;
+            return 0;
+        };
     }
-    comparePPG(a, b) {
-        return b.ppg - a.ppg;
-    }
-    compareRPG(a, b) {
-        return b.rpg - a.rpg;
-    }
-    compareAPG(a, b) {
-        return b.apg - a.apg;
+    compareNums(property) {
+        return function (a, b) {
+            return b[property] - a[property];
+        };
     }
 };
 SortPlayersPipe = __decorate([

@@ -13,11 +13,13 @@ const router_1 = require('@angular/router');
 const teams_list_component_1 = require('./components/teams/teams-list/teams-list.component');
 const team_detail_component_1 = require('./components/teams/team-detail/team-detail.component');
 const player_detail_component_1 = require('./components/players/player-detail/player-detail.component');
+const dashboard_component_1 = require('./components/dashboard/dashboard.component');
 const routes = [
     { path: '', redirectTo: '/teams', pathMatch: 'full' },
     { path: 'teams', component: teams_list_component_1.TeamsListComponent },
     { path: 'team/:id', component: team_detail_component_1.TeamDetailComponent },
-    { path: 'player/:id', component: player_detail_component_1.PlayerDetailComponent }
+    { path: 'player/:id', component: player_detail_component_1.PlayerDetailComponent },
+    { path: 'players', component: dashboard_component_1.DashboardComponent }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

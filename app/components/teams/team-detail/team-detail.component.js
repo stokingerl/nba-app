@@ -17,6 +17,7 @@ let TeamDetailComponent = class TeamDetailComponent {
         this.route = route;
         this.teamService = teamService;
     }
+    //move this into Team object
     get teamLogo() {
         return 'http://i.cdn.turner.com/nba/nba/assets/logos/teams/primary/web/' + this.team.abbreviation + '.svg';
     }

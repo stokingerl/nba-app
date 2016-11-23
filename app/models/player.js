@@ -18,6 +18,14 @@ class Player {
         this.pf = 0;
         this.pts = 0;
         this.plusMinus = 0;
+        this.mpg = 0;
+        this.ppg = 0;
+        this.apg = 0;
+        this.rpg = 0;
+        this.bpg = 0;
+        this.spg = 0;
+        this.fgPercent = 0;
+        this.tpPercent = 0;
         this.games = 0;
         if (playerDetail) {
             this.setPlayerDetails(playerDetail);
@@ -58,7 +66,7 @@ class Player {
         this.reb += boxscore.oreb + boxscore.dreb;
         this.ast += boxscore.ast;
         this.blk += boxscore.blk;
-        this.stl += boxscore.stl;
+        this.stl += Number(boxscore.stl);
         this.to += boxscore.to;
         this.pf += boxscore.pf;
         this.pts += boxscore.pts;
@@ -73,8 +81,8 @@ class Player {
         this.rpg = this.reb / this.games;
         this.bpg = this.blk / this.games;
         this.spg = this.stl / this.games;
-        this.fgPercent = this.fgm / this.fga;
-        this.tpPercent = this.fg3m / this.fg3a;
+        this.fgPercent = (this.fgm / this.fga) * 100;
+        this.tpPercent = (this.fg3m / this.fg3a) * 100;
     }
 }
 exports.Player = Player;

@@ -16,7 +16,7 @@ export class PlayerBoxScore {
     dreb: number;
     ast: number;
     blk: number;
-    stl: number;
+    stl: string;
     to: number;
     pf: number;
     pts: number;

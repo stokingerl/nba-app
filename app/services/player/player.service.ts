@@ -48,4 +48,26 @@ export class PlayerService {
                    .map((r:Response) => r.json()[0] as PlayerDetail);
     }
 
+    getAllPlayerStats(): Observable<PlayerBoxScore[]> {
+        let url = this.baseUrl + 'boxscore/player';
+        let body = {
+            api_key: this.apiKey,
+            season: 2016
+        };
+
+        return this.http.post(url, body)
+                   .map((r:Response) => r.json() as PlayerBoxScore[]);
+    }
+
+    getAllPlayerDetails(): Observable<PlayerDetail[]> {
+        let url = this.baseUrl + 'player';
+        let body = {
+            api_key: this.apiKey,
+            season: 2016
+        };
+
+        return this.http.post(url, body)
+                   .map((r:Response) => r.json() as PlayerDetail[]);
+    }
+
 }

@@ -3,29 +3,30 @@ import { ActivatedRoute, Params, Router} from '@angular/router';
 
 import 'rxjs/Rx';
 
-import { TeamService }   from '../../../services/team/team.service';
+import { PlayerService }   from '../../services/player/player.service';
 
-import { Player }         from '../../../models/player';
-import { PlayerBoxScore } from '../../../models/player-box-score';
-import { PlayerDetail }   from '../../../models/player-detail';
+import { Player }         from '../../models/player';
+import { PlayerBoxScore } from '../../models/player-box-score';
+import { PlayerDetail }   from '../../models/player-detail';
+
+import { SortPlayersPipe } from '../players/players-list/list/sort-players.pipe';
 
 @Component({
     moduleId: module.id,
-    selector: 'team-roster',
-    templateUrl: 'roster.component.html',
-    styleUrls: ['roster.component.css']
+    selector: 'player-dashboard',
+    templateUrl: 'dashboard.component.html',
+    styleUrls: ['dashboard.component.css']
 })
 
-export class RosterComponent implements OnInit {
-    @Input()
-    teamId: number;
+export class DashboardComponent implements OnInit {
     players = new Array<Player>();
     numCalls = 2;
     callsFinished = 0;
-    headers: string[] = ['Name', 'PPG', 'RPG', 'APG', 'BPG', 'SPG'];
-    stats: string[] = ['ppg','rpg','apg', 'bpg', 'spg'];
+    headers: string[] = ['PPG', 'RPG', 'APG', 'BPG', 'SPG', 'FG%'];
+    stats: string[] = ['ppg','rpg','apg', 'bpg', 'spg', 'fgPercent'];
+    playerSorter = new SortPlayersPipe();
 
-    constructor(private teamService: TeamService,
+    constructor(private playerService: PlayerService,
                 private router: Router,
                 private route: ActivatedRoute) {
 
@@ -35,13 +36,17 @@ export class RosterComponent implements OnInit {
         this.getPlayers();
     }
 
+    sortAndSlicePlayers(header: string): Player[] {
+        return this.playerSorter.transform(this.players, header).slice(0,5);
+    }
+
     private getPlayers(): void {
         this.getAllPlayersDetails();
         this.getAllPlayerStats();
     }
 
     private getAllPlayersDetails(): void {
-        this.teamService.getRoster(this.teamId)
+        this.playerService.getAllPlayerDetails()
             .subscribe(
                 value => this.setPlayerDetails(value),
                 error => console.log(error)
@@ -49,7 +54,7 @@ export class RosterComponent implements OnInit {
     }
 
     private getAllPlayerStats(): void {
-        this.teamService.getAllPlayerStatsByTeam(this.teamId)
+        this.playerService.getAllPlayerStats()
             .subscribe(
                 value => this.filterPlayerStats(value),
                 error => console.log(error)

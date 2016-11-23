@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router }           from '@angular/router';
 
 import { Player } from '../../../../models/player';
@@ -11,8 +11,10 @@ import { Player } from '../../../../models/player';
 })
 
 export class PlayerRowComponent {
-    @Input('player-row')
+    @Input()
     player: Player;
+    @Input()
+    stats: string[];
 
     constructor(private router: Router) {
 

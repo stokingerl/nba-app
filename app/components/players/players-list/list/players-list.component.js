@@ -11,8 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 let PlayersListComponent = class PlayersListComponent {
     constructor() {
-        this.headers = ['Name', 'PPG', 'RPG', 'APG'];
-        this.sortByValue = "Name";
+    }
+    ngOnInit() {
+        this.sortByValue = this.headers ? this.headers[0] : null;
     }
     sortByChanged($event) {
         this.sortByValue = $event;
@@ -22,6 +23,14 @@ __decorate([
     core_1.Input(), 
     __metadata('design:type', Array)
 ], PlayersListComponent.prototype, "players", void 0);
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', Array)
+], PlayersListComponent.prototype, "headers", void 0);
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', Array)
+], PlayersListComponent.prototype, "stats", void 0);
 PlayersListComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

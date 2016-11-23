@@ -7,6 +7,7 @@ import { Player } from '../../../../models/player';
 })
 
 export class SortPlayersPipe implements PipeTransform {
+
     transform(players: Player[], sortBy: string): Player[] {
         if(!players){
             return null;
@@ -14,16 +15,28 @@ export class SortPlayersPipe implements PipeTransform {
 
         switch(sortBy) {
             case 'Name':
-                players.sort(this.compareNames);
+                players.sort(this.compareStrings('lastName'));
                 break;
             case 'PPG':
-                players.sort(this.comparePPG);
+                players.sort(this.compareNums('ppg'));
                 break;
             case 'RPG':
-                players.sort(this.compareRPG);
+                players.sort(this.compareNums('rpg'));
                 break;
             case 'APG':
-                players.sort(this.compareAPG);
+                players.sort(this.compareNums('apg'));
+                break;
+            case 'BPG':
+                players.sort(this.compareNums('bpg'));
+                break;
+            case 'SPG':
+                players.sort(this.compareNums('spg'));
+                break;
+            case 'FG%':
+                players.sort(this.compareNums('fgPercent'));
+                break;
+            case '3P%':
+                players.sort(this.compareNums('tpPercent'));
                 break;
             default:
                 break;
@@ -32,23 +45,19 @@ export class SortPlayersPipe implements PipeTransform {
         return players;
     }
 
-    compareNames(a: Player, b: Player): number {
-        if(a.lastName < b.lastName)
-            return -1;
-        if(a.lastName > b.lastName)
-            return 1;
-        return 0;
+    compareStrings(property: string) {
+        return function(a: Player, b: Player): number {
+            if(a[property] < b[property])
+                return -1;
+            if(a[property] > b[property])
+                return 1;
+            return 0;
+        }
     }
 
-    comparePPG(a: Player, b: Player): number {
-        return b.ppg - a.ppg;
-    }
-
-    compareRPG(a: Player, b: Player): number {
-        return b.rpg - a.rpg;
-    }
-
-    compareAPG(a: Player, b: Player): number {
-        return b.apg - a.apg;
+    compareNums(property: string) {
+        return function(a: Player, b: Player): number {
+            return b[property] - a[property];
+        }
     }
 }

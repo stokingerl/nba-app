@@ -18,6 +18,8 @@ export class TeamDetailComponent implements OnInit {
     teamId: number;
     team: TeamDetail;
 
+
+    //move this into Team object
     get teamLogo(): string {
         return 'http://i.cdn.turner.com/nba/nba/assets/logos/teams/primary/web/' + this.team.abbreviation + '.svg';
     }

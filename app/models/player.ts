@@ -28,14 +28,14 @@ export class Player {
     pf= 0;
     pts= 0;
     plusMinus= 0;
-    mpg: number;
-    ppg: number;
-    apg: number;
-    rpg: number;
-    bpg: number;
-    spg: number;
-    fgPercent: number;
-    tpPercent: number;
+    mpg = 0;
+    ppg = 0;
+    apg = 0;
+    rpg = 0;
+    bpg = 0;
+    spg = 0;
+    fgPercent = 0;
+    tpPercent = 0;
     games = 0;
     playerImage: string;
 
@@ -83,7 +83,7 @@ export class Player {
         this.reb += boxscore.oreb + boxscore.dreb;
         this.ast += boxscore.ast;
         this.blk += boxscore.blk;
-        this.stl += boxscore.stl;
+        this.stl += Number(boxscore.stl);
         this.to += boxscore.to;
         this.pf += boxscore.pf;
         this.pts += boxscore.pts;
@@ -100,7 +100,7 @@ export class Player {
         this.rpg = this.reb / this.games;
         this.bpg = this.blk / this.games;
         this.spg = this.stl / this.games;
-        this.fgPercent = this.fgm / this.fga;
-        this.tpPercent = this.fg3m / this.fg3a;
+        this.fgPercent = (this.fgm / this.fga) * 100;
+        this.tpPercent = (this.fg3m / this.fg3a) * 100;
     }
 }

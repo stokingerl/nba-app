@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { PlayerRowComponent } from '../row/player-row.component';
 import { PlayersListHeader } from '../header/players-list-header.component';
@@ -12,14 +12,21 @@ import { Player } from '../../../../models/player';
     styleUrls: ['players-list.component.css']
 })
 
-export class PlayersListComponent {
+export class PlayersListComponent implements OnInit {
     @Input()
     players: Player[];
-    headers: string[] = ['Name', 'PPG', 'RPG', 'APG'];
-    sortByValue: string = "Name";
+    @Input()
+    headers: string[];
+    @Input()
+    stats: string[];
+    sortByValue: string;
 
     constructor() {
 
+    }
+
+    ngOnInit(): void {
+        this.sortByValue = this.headers ? this.headers[0] : null;
     }
 
     sortByChanged($event: any): void {

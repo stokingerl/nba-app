@@ -40,6 +40,24 @@ let PlayerService = class PlayerService {
         return this.http.post(url, body)
             .map((r) => r.json()[0]);
     }
+    getAllPlayerStats() {
+        let url = this.baseUrl + 'boxscore/player';
+        let body = {
+            api_key: this.apiKey,
+            season: 2016
+        };
+        return this.http.post(url, body)
+            .map((r) => r.json());
+    }
+    getAllPlayerDetails() {
+        let url = this.baseUrl + 'player';
+        let body = {
+            api_key: this.apiKey,
+            season: 2016
+        };
+        return this.http.post(url, body)
+            .map((r) => r.json());
+    }
 };
 PlayerService = __decorate([
     core_1.Injectable(), 

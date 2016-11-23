@@ -11,6 +11,8 @@ import { PlayerRowComponent } from './components/players/players-list/row/player
 import { PlayersListComponent } from './components/players/players-list/list/players-list.component';
 import { PlayersListHeader } from './components/players/players-list/header/players-list-header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { StatLeaderComponent } from './components/players/stat-leader/stat-leader.component';
 
 import { FilterPlayersPipe } from './components/players/players-list/list/filter-players.pipe';
 import { SortPlayersPipe } from './components/players/players-list/list/sort-players.pipe';
@@ -37,7 +39,9 @@ import { AppRoutingModule } from './app-routing.module';
         PlayerRowComponent,
         PlayersListComponent,
         PlayersListHeader,
-        NavbarComponent
+        NavbarComponent,
+        DashboardComponent,
+        StatLeaderComponent
     ],
     providers: [
         TeamService,

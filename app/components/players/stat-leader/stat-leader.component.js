@@ -9,32 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
-const router_1 = require('@angular/router');
-const player_1 = require('../../../../models/player');
-let PlayerRowComponent = class PlayerRowComponent {
-    constructor(router) {
-        this.router = router;
-    }
-    goToPlayerDetail() {
-        this.router.navigate(['/player', this.player.id]);
+let StatLeaderComponent = class StatLeaderComponent {
+    constructor() {
     }
 };
 __decorate([
     core_1.Input(), 
-    __metadata('design:type', player_1.Player)
-], PlayerRowComponent.prototype, "player", void 0);
+    __metadata('design:type', Array)
+], StatLeaderComponent.prototype, "players", void 0);
 __decorate([
     core_1.Input(), 
-    __metadata('design:type', Array)
-], PlayerRowComponent.prototype, "stats", void 0);
-PlayerRowComponent = __decorate([
+    __metadata('design:type', String)
+], StatLeaderComponent.prototype, "header", void 0);
+__decorate([
+    core_1.Input(), 
+    __metadata('design:type', String)
+], StatLeaderComponent.prototype, "stat", void 0);
+StatLeaderComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: '[player-row]',
-        templateUrl: 'player-row.component.html',
-        styleUrls: ['player-row.component.css']
+        selector: 'stat-leader',
+        templateUrl: 'stat-leader.component.html',
+        styleUrls: ['stat-leader.component.css']
     }), 
-    __metadata('design:paramtypes', [router_1.Router])
-], PlayerRowComponent);
-exports.PlayerRowComponent = PlayerRowComponent;
-//# sourceMappingURL=player-row.component.js.map
+    __metadata('design:paramtypes', [])
+], StatLeaderComponent);
+exports.StatLeaderComponent = StatLeaderComponent;
+//# sourceMappingURL=stat-leader.component.js.map
