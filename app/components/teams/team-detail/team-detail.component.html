@@ -1,0 +1,9 @@
+<div class="row" *ngIf="team">
+    <div class="col-xs-2">
+        <img [src]="teamLogo">
+    </div>
+    <div class="team-text col-xs-10 text-left">
+        <h2>{{team.city}} {{team.team_name}}</h2>
+    </div>
+</div>
+<team-roster [teamId]="teamId"></team-roster>

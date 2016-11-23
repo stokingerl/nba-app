@@ -1,0 +1,9 @@
+<div class="container-fluid">
+    <table class="table table-striped table-bordered col-xs-12">
+        <thead players-list-header [sortBy]="sortByValue" [headers]="headers" (sortByChange)="sortByChanged($event);">
+        </thead>
+        <tbody>
+            <tr *ngFor="let player of (players | filterPlayers | sortPlayers:sortByValue)" [player-row]="player"></tr>
+        </tbody>
+    </table>
+</div>

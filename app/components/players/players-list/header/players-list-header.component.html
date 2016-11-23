@@ -1,0 +1,5 @@
+<tr>
+    <th *ngFor="let header of headers">
+        <a (click)="setSortBy(header)">{{header}} <i *ngIf="sortBy === header" class="fa fa-caret-up"></i></a>
+    </th>
+</tr>
