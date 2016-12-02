@@ -23,7 +23,7 @@ let PlayerDetailComponent = class PlayerDetailComponent {
     getPlayer() {
         this.setPlayerId();
         this.playerService.getPlayer(this.playerId)
-            .subscribe(data => this.player = new player_1.Player(data[0], null, data[1]), error => console.log(error));
+            .subscribe(data => this.player = new player_1.Player(data[0][0], null, data[1]), error => console.log(error));
     }
     setPlayerId() {
         this.route.params.forEach((params) => {

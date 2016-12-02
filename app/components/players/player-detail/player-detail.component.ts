@@ -29,7 +29,7 @@ export class PlayerDetailComponent implements OnInit {
         this.setPlayerId();
         this.playerService.getPlayer(this.playerId)
             .subscribe(
-                data => this.player = new Player(data[0], null, data[1]),
+                data => this.player = new Player(data[0][0], null, data[1]),
                 error => console.log(error)
             );
     }

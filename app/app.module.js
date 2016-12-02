@@ -26,6 +26,7 @@ const filter_players_pipe_1 = require('./components/players/players-list/list/fi
 const sort_players_pipe_1 = require('./components/players/players-list/list/sort-players.pipe');
 const team_service_1 = require('./services/team/team.service');
 const player_service_1 = require('./services/player/player.service');
+const player_factory_1 = require('./services/player/player.factory');
 const app_routing_module_1 = require('./app-routing.module');
 let AppModule = class AppModule {
 };
@@ -53,7 +54,8 @@ AppModule = __decorate([
         ],
         providers: [
             team_service_1.TeamService,
-            player_service_1.PlayerService
+            player_service_1.PlayerService,
+            player_factory_1.PlayerFactory
         ],
         bootstrap: [
             home_component_1.HomeComponent

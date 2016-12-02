@@ -35,11 +35,10 @@ export class TeamDetailComponent implements OnInit {
     }
 
     private getTeamInfo(): void {
-        this.teamService.getTeam(this.teamId)
+        this.teamService.getTeams(this.teamId)
             .subscribe(
                 value => this.team = value,
-                error => console.log(error),
-                () => console.log(this.team)
+                error => console.log(error)
             );
     }
 

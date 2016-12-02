@@ -26,8 +26,8 @@ let TeamDetailComponent = class TeamDetailComponent {
         this.getTeamInfo();
     }
     getTeamInfo() {
-        this.teamService.getTeam(this.teamId)
-            .subscribe(value => this.team = value, error => console.log(error), () => console.log(this.team));
+        this.teamService.getTeams(this.teamId)
+            .subscribe(value => this.team = value, error => console.log(error));
     }
     setTeamId() {
         this.route.params.forEach((params) => {

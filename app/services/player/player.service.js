@@ -11,24 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const http_1 = require('@angular/http');
 const Rx_1 = require('rxjs/Rx');
+const global_constants_1 = require('../constants/global.constants');
 let PlayerService = class PlayerService {
     constructor(http) {
         this.http = http;
-        this.baseUrl = 'http://api.probasketballapi.com/';
-        this.apiKey = 'NktJ2pLfdZ8SHBwWocVijC4YhPvxMelF';
+        this.baseUrl = global_constants_1.GlobalConstants.API.BASE_API_URL;
+        this.apiKey = global_constants_1.GlobalConstants.API.BASE_API_KEY;
     }
     getPlayer(playerId) {
         return Rx_1.Observable.forkJoin(this.getPlayerDetails(playerId), this.getPlayerStats(playerId));
     }
-    getPlayerStats(playerId) {
-        let url = this.baseUrl + 'boxscore/player';
-        let body = {
-            api_key: this.apiKey,
-            season: 2016,
-            player_id: playerId
-        };
-        return this.http.post(url, body)
-            .map((r) => r.json());
+    getAllPlayers() {
+        return Rx_1.Observable.forkJoin(this.getPlayerDetails(), this.getPlayerStats());
     }
     getPlayerDetails(playerId) {
         let url = this.baseUrl + 'player';
@@ -38,22 +32,14 @@ let PlayerService = class PlayerService {
             player_id: playerId
         };
         return this.http.post(url, body)
-            .map((r) => r.json()[0]);
+            .map((r) => r.json());
     }
-    getAllPlayerStats() {
+    getPlayerStats(playerId) {
         let url = this.baseUrl + 'boxscore/player';
         let body = {
             api_key: this.apiKey,
-            season: 2016
-        };
-        return this.http.post(url, body)
-            .map((r) => r.json());
-    }
-    getAllPlayerDetails() {
-        let url = this.baseUrl + 'player';
-        let body = {
-            api_key: this.apiKey,
-            season: 2016
+            season: 2016,
+            player_id: playerId
         };
         return this.http.post(url, body)
             .map((r) => r.json());

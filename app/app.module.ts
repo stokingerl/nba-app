@@ -19,6 +19,7 @@ import { SortPlayersPipe } from './components/players/players-list/list/sort-pla
 
 import { TeamService }  from './services/team/team.service';
 import { PlayerService} from './services/player/player.service';
+import { PlayerFactory} from './services/player/player.factory';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -45,7 +46,8 @@ import { AppRoutingModule } from './app-routing.module';
     ],
     providers: [
         TeamService,
-        PlayerService
+        PlayerService,
+        PlayerFactory
     ],
     bootstrap: [
         HomeComponent

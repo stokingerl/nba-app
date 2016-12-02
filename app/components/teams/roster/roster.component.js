@@ -12,59 +12,41 @@ const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 require('rxjs/Rx');
 const team_service_1 = require('../../../services/team/team.service');
-const player_1 = require('../../../models/player');
+const player_factory_1 = require('../../../services/player/player.factory');
+const global_constants_1 = require('../../../services/constants/global.constants');
 let RosterComponent = class RosterComponent {
-    constructor(teamService, router, route) {
+    constructor(teamService, router, route, playerFactory) {
         this.teamService = teamService;
         this.router = router;
         this.route = route;
+        this.playerFactory = playerFactory;
         this.players = new Array();
-        this.numCalls = 2;
-        this.callsFinished = 0;
-        this.headers = ['Name', 'PPG', 'RPG', 'APG', 'BPG', 'SPG'];
-        this.stats = ['ppg', 'rpg', 'apg', 'bpg', 'spg'];
+        this.finished = false;
+        this.constants = global_constants_1.GlobalConstants.HEADERS;
+        this.headers = [
+            'Name',
+            this.constants.PPG_HEADER,
+            this.constants.RPG_HEADER,
+            this.constants.APG_HEADER,
+            this.constants.BPG_HEADER,
+            this.constants.SPG_HEADER,
+            this.constants.FGP_HEADER
+        ];
+        this.stats = [
+            this.constants.PPG_PROPERTY,
+            this.constants.RPG_PROPERTY,
+            this.constants.APG_PROPERTY,
+            this.constants.BPG_PROPERTY,
+            this.constants.SPG_PROPERTY,
+            this.constants.FGP_PROPERTY
+        ];
     }
     ngOnInit() {
         this.getPlayers();
     }
     getPlayers() {
-        this.getAllPlayersDetails();
-        this.getAllPlayerStats();
-    }
-    getAllPlayersDetails() {
-        this.teamService.getRoster(this.teamId)
-            .subscribe(value => this.setPlayerDetails(value), error => console.log(error));
-    }
-    getAllPlayerStats() {
-        this.teamService.getAllPlayerStatsByTeam(this.teamId)
-            .subscribe(value => this.filterPlayerStats(value), error => console.log(error));
-    }
-    setPlayerDetails(playerDetails) {
-        loop1: for (let playerDetail of playerDetails) {
-            for (let player of this.players) {
-                if (player.id === playerDetail.id) {
-                    player.setPlayerDetails(playerDetail);
-                    continue loop1;
-                }
-            }
-            this.players.push(new player_1.Player(playerDetail, null, null));
-        }
-        this.finishedCall();
-    }
-    filterPlayerStats(boxscores) {
-        loop1: for (let boxscore of boxscores) {
-            for (let player of this.players) {
-                if (player.id === boxscore.player_id) {
-                    player.addBoxScore(boxscore);
-                    continue loop1;
-                }
-            }
-            this.players.push(new player_1.Player(null, boxscore, null));
-        }
-        this.finishedCall();
-    }
-    finishedCall() {
-        this.callsFinished++;
+        this.teamService.getTeamRoster(this.teamId)
+            .subscribe(value => this.players = this.playerFactory.sortPlayerInfo(value[0], value[1]), error => console.log(error), () => this.finished = true);
     }
 };
 __decorate([
@@ -78,7 +60,7 @@ RosterComponent = __decorate([
         templateUrl: 'roster.component.html',
         styleUrls: ['roster.component.css']
     }), 
-    __metadata('design:paramtypes', [team_service_1.TeamService, router_1.Router, router_1.ActivatedRoute])
+    __metadata('design:paramtypes', [team_service_1.TeamService, router_1.Router, router_1.ActivatedRoute, player_factory_1.PlayerFactory])
 ], RosterComponent);
 exports.RosterComponent = RosterComponent;
 //# sourceMappingURL=roster.component.js.map

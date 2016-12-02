@@ -12,18 +12,34 @@ const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 require('rxjs/Rx');
 const player_service_1 = require('../../services/player/player.service');
-const player_1 = require('../../models/player');
+const player_factory_1 = require('../../services/player/player.factory');
 const sort_players_pipe_1 = require('../players/players-list/list/sort-players.pipe');
+const global_constants_1 = require('../../services/constants/global.constants');
 let DashboardComponent = class DashboardComponent {
-    constructor(playerService, router, route) {
+    constructor(playerService, router, route, playerFactory) {
         this.playerService = playerService;
         this.router = router;
         this.route = route;
+        this.playerFactory = playerFactory;
         this.players = new Array();
-        this.numCalls = 2;
-        this.callsFinished = 0;
-        this.headers = ['PPG', 'RPG', 'APG', 'BPG', 'SPG', 'FG%'];
-        this.stats = ['ppg', 'rpg', 'apg', 'bpg', 'spg', 'fgPercent'];
+        this.finished = false;
+        this.constants = global_constants_1.GlobalConstants.HEADERS;
+        this.headers = [
+            this.constants.PPG_HEADER,
+            this.constants.RPG_HEADER,
+            this.constants.APG_HEADER,
+            this.constants.BPG_HEADER,
+            this.constants.SPG_HEADER,
+            this.constants.FGP_HEADER
+        ];
+        this.stats = [
+            this.constants.PPG_PROPERTY,
+            this.constants.RPG_PROPERTY,
+            this.constants.APG_PROPERTY,
+            this.constants.BPG_PROPERTY,
+            this.constants.SPG_PROPERTY,
+            this.constants.FGP_PROPERTY
+        ];
         this.playerSorter = new sort_players_pipe_1.SortPlayersPipe();
     }
     ngOnInit() {
@@ -33,43 +49,8 @@ let DashboardComponent = class DashboardComponent {
         return this.playerSorter.transform(this.players, header).slice(0, 5);
     }
     getPlayers() {
-        this.getAllPlayersDetails();
-        this.getAllPlayerStats();
-    }
-    getAllPlayersDetails() {
-        this.playerService.getAllPlayerDetails()
-            .subscribe(value => this.setPlayerDetails(value), error => console.log(error));
-    }
-    getAllPlayerStats() {
-        this.playerService.getAllPlayerStats()
-            .subscribe(value => this.filterPlayerStats(value), error => console.log(error));
-    }
-    setPlayerDetails(playerDetails) {
-        loop1: for (let playerDetail of playerDetails) {
-            for (let player of this.players) {
-                if (player.id === playerDetail.id) {
-                    player.setPlayerDetails(playerDetail);
-                    continue loop1;
-                }
-            }
-            this.players.push(new player_1.Player(playerDetail, null, null));
-        }
-        this.finishedCall();
-    }
-    filterPlayerStats(boxscores) {
-        loop1: for (let boxscore of boxscores) {
-            for (let player of this.players) {
-                if (player.id === boxscore.player_id) {
-                    player.addBoxScore(boxscore);
-                    continue loop1;
-                }
-            }
-            this.players.push(new player_1.Player(null, boxscore, null));
-        }
-        this.finishedCall();
-    }
-    finishedCall() {
-        this.callsFinished++;
+        this.playerService.getAllPlayers()
+            .subscribe(value => this.players = this.playerFactory.sortPlayerInfo(value[0], value[1]), error => console.log(error), () => this.finished = true);
     }
 };
 DashboardComponent = __decorate([
@@ -79,7 +60,7 @@ DashboardComponent = __decorate([
         templateUrl: 'dashboard.component.html',
         styleUrls: ['dashboard.component.css']
     }), 
-    __metadata('design:paramtypes', [player_service_1.PlayerService, router_1.Router, router_1.ActivatedRoute])
+    __metadata('design:paramtypes', [player_service_1.PlayerService, router_1.Router, router_1.ActivatedRoute, player_factory_1.PlayerFactory])
 ], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map

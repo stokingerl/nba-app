@@ -7,14 +7,23 @@ import { TeamDetail }     from '../../models/team-detail';
 import { PlayerDetail }   from '../../models/player-detail';
 import { PlayerBoxScore } from '../../models/player-box-score';
 
+import { GlobalConstants } from '../constants/global.constants';
+
 @Injectable()
 export class TeamService {
 
-    private baseUrl = 'http://api.probasketballapi.com/';
-    private apiKey = 'NktJ2pLfdZ8SHBwWocVijC4YhPvxMelF';
+    private baseUrl = GlobalConstants.API.BASE_API_URL;
+    private apiKey = GlobalConstants.API.BASE_API_KEY;
 
     constructor(private http: Http) {
 
+    }
+
+    getTeamRoster(teamId: number): Observable<[PlayerDetail[], PlayerBoxScore[]]> {
+        return Observable.forkJoin(
+            this.getRoster(teamId),
+            this.getAllPlayerStatsByTeam(teamId)
+        );
     }
 
     getAllTeams(): Observable<TeamDetail[]> {
@@ -28,7 +37,7 @@ export class TeamService {
 
     }
 
-    getTeam(teamId: number): Observable<TeamDetail> {
+    getTeams(teamId?: number): Observable<TeamDetail> {
         let url = this.baseUrl + 'team';
         let body = {
             api_key: this.apiKey,

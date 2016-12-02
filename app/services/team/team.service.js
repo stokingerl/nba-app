@@ -10,11 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const http_1 = require('@angular/http');
+const Observable_1 = require('rxjs/Observable');
+const global_constants_1 = require('../constants/global.constants');
 let TeamService = class TeamService {
     constructor(http) {
         this.http = http;
-        this.baseUrl = 'http://api.probasketballapi.com/';
-        this.apiKey = 'NktJ2pLfdZ8SHBwWocVijC4YhPvxMelF';
+        this.baseUrl = global_constants_1.GlobalConstants.API.BASE_API_URL;
+        this.apiKey = global_constants_1.GlobalConstants.API.BASE_API_KEY;
+    }
+    getTeamRoster(teamId) {
+        return Observable_1.Observable.forkJoin(this.getRoster(teamId), this.getAllPlayerStatsByTeam(teamId));
     }
     getAllTeams() {
         let url = this.baseUrl + 'team';
@@ -24,7 +29,7 @@ let TeamService = class TeamService {
         return this.http.post(url, body)
             .map((r) => r.json());
     }
-    getTeam(teamId) {
+    getTeams(teamId) {
         let url = this.baseUrl + 'team';
         let body = {
             api_key: this.apiKey,

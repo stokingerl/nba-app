@@ -7,11 +7,13 @@ import { Player } from '../../models/player';
 import { PlayerDetail } from '../../models/player-detail';
 import { PlayerBoxScore } from '../../models/player-box-score';
 
+import { GlobalConstants } from '../constants/global.constants';
+
 @Injectable()
 export class PlayerService {
 
-    private baseUrl = 'http://api.probasketballapi.com/';
-    private apiKey = 'NktJ2pLfdZ8SHBwWocVijC4YhPvxMelF';
+    private baseUrl = GlobalConstants.API.BASE_API_URL;
+    private apiKey = GlobalConstants.API.BASE_API_KEY;
 
     constructor(private http: Http) {
 
@@ -24,50 +26,35 @@ export class PlayerService {
         );
     }
 
-    getPlayerStats(playerId: number): Observable<PlayerBoxScore[]> {
-        let url = this.baseUrl + 'boxscore/player';
-        let body = {
-            api_key: this.apiKey,
-            season: 2016,
-            player_id: playerId
-        };
-
-        return this.http.post(url, body)
-                   .map((r:Response) => r.json() as PlayerBoxScore[]);
+    getAllPlayers(): Observable<[PlayerDetail[], PlayerBoxScore[]]> {
+        return Observable.forkJoin(
+            this.getPlayerDetails(),
+            this.getPlayerStats()
+        );
     }
 
-    getPlayerDetails(playerId: number): Observable<PlayerDetail> {
+    getPlayerDetails(playerId?: number): Observable<PlayerDetail[]> {
         let url = this.baseUrl + 'player';
         let body = {
             api_key: this.apiKey,
             season: 2016,
             player_id: playerId
-        };
-
-        return this.http.post(url, body)
-                   .map((r:Response) => r.json()[0] as PlayerDetail);
-    }
-
-    getAllPlayerStats(): Observable<PlayerBoxScore[]> {
-        let url = this.baseUrl + 'boxscore/player';
-        let body = {
-            api_key: this.apiKey,
-            season: 2016
-        };
-
-        return this.http.post(url, body)
-                   .map((r:Response) => r.json() as PlayerBoxScore[]);
-    }
-
-    getAllPlayerDetails(): Observable<PlayerDetail[]> {
-        let url = this.baseUrl + 'player';
-        let body = {
-            api_key: this.apiKey,
-            season: 2016
         };
 
         return this.http.post(url, body)
                    .map((r:Response) => r.json() as PlayerDetail[]);
+    }
+
+    getPlayerStats(playerId?: number): Observable<PlayerBoxScore[]> {
+        let url = this.baseUrl + 'boxscore/player';
+        let body = {
+            api_key: this.apiKey,
+            season: 2016,
+            player_id: playerId
+        };
+
+        return this.http.post(url, body)
+                   .map((r:Response) => r.json() as PlayerBoxScore[]);
     }
 
 }
