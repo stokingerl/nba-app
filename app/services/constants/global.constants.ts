@@ -1,7 +1,7 @@
 export const GlobalConstants = Object.freeze({
     API: {
         BASE_API_URL: 'http://api.probasketballapi.com/',
-        BASE_API_KEY: 'NktJ2pLfdZ8SHBwWocVijC4YhPvxMelF'
+        BASE_API_KEY: process.env.api_key
     },
     HEADERS: {
         PPG_HEADER: 'PPG',
