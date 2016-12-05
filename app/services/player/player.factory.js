@@ -11,10 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const player_1 = require('../../models/player');
 let PlayerFactory = class PlayerFactory {
-    constructor() {
-        this.players = new Array();
-    }
     sortPlayerInfo(playerDetails, boxscores) {
+        this.players = new Array();
         this.setPlayerDetails(playerDetails);
         this.filterPlayerStats(boxscores);
         return this.players;
