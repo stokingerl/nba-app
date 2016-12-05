@@ -95,12 +95,12 @@ export class Player {
 
     private calcAggregates(): void {
         //this.mpg = this.min / this.games;
-        this.ppg = this.pts / this.games;
-        this.apg = this.ast / this.games;
-        this.rpg = this.reb / this.games;
-        this.bpg = this.blk / this.games;
-        this.spg = this.stl / this.games;
-        this.fgPercent = (this.fgm / this.fga) * 100;
-        this.tpPercent = (this.fg3m / this.fg3a) * 100;
+        this.ppg = this.games === 0 ? 0 : this.pts / this.games;
+        this.apg = this.games === 0 ? 0 : this.ast / this.games;
+        this.rpg = this.games === 0 ? 0 : this.reb / this.games;
+        this.bpg = this.games === 0 ? 0 : this.blk / this.games;
+        this.spg = this.games === 0 ? 0 : this.stl / this.games;
+        this.fgPercent = this.fga === 0 ? 0 : (this.fgm / this.fga) * 100;
+        this.tpPercent = this.fg3a === 0 ? 0 : (this.fg3m / this.fg3a) * 100;
     }
 }

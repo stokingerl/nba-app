@@ -30,7 +30,8 @@ let RosterComponent = class RosterComponent {
             this.constants.APG_HEADER,
             this.constants.BPG_HEADER,
             this.constants.SPG_HEADER,
-            this.constants.FGP_HEADER
+            this.constants.FGP_HEADER,
+            this.constants.TPP_HEADER
         ];
         this.stats = [
             this.constants.PPG_PROPERTY,
@@ -38,7 +39,8 @@ let RosterComponent = class RosterComponent {
             this.constants.APG_PROPERTY,
             this.constants.BPG_PROPERTY,
             this.constants.SPG_PROPERTY,
-            this.constants.FGP_PROPERTY
+            this.constants.FGP_PROPERTY,
+            this.constants.TPP_PROPERTY
         ];
     }
     ngOnInit() {

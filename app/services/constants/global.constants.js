@@ -16,7 +16,9 @@ exports.GlobalConstants = Object.freeze({
         SPG_HEADER: 'SPG',
         SPG_PROPERTY: 'spg',
         FGP_HEADER: 'FG%',
-        FGP_PROPERTY: 'fgPercent'
+        FGP_PROPERTY: 'fgPercent',
+        TPP_HEADER: '3P%',
+        TPP_PROPERTY: 'tpPercent'
     }
 });
 //# sourceMappingURL=global.constants.js.map

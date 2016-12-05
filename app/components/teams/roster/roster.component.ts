@@ -32,7 +32,9 @@ export class RosterComponent implements OnInit {
         this.constants.APG_HEADER,
         this.constants.BPG_HEADER,
         this.constants.SPG_HEADER,
-        this.constants.FGP_HEADER
+        this.constants.FGP_HEADER,
+        this.constants.TPP_HEADER
+
     ];
     stats: string[] = [
         this.constants.PPG_PROPERTY,
@@ -40,7 +42,8 @@ export class RosterComponent implements OnInit {
         this.constants.APG_PROPERTY,
         this.constants.BPG_PROPERTY,
         this.constants.SPG_PROPERTY,
-        this.constants.FGP_PROPERTY
+        this.constants.FGP_PROPERTY,
+        this.constants.TPP_PROPERTY
     ];
 
     constructor(private teamService: TeamService,
