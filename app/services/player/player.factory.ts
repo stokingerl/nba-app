@@ -6,9 +6,10 @@ import { PlayerBoxScore } from '../../models/player-box-score';
 
 @Injectable()
 export class PlayerFactory {
-    private players: Player[] = new Array<Player>();
+    private players: Player[];
 
     sortPlayerInfo(playerDetails: PlayerDetail[], boxscores: PlayerBoxScore[]): Player[] {
+        this.players = new Array<Player>();
         this.setPlayerDetails(playerDetails);
         this.filterPlayerStats(boxscores);
         return this.players;
