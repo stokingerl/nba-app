@@ -7,11 +7,11 @@ import { PlayerDetailComponent } from './components/players/player-detail/player
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/teams', pathMatch: 'full'},
     { path: 'teams', component: TeamsListComponent },
     { path: 'team/:id', component: TeamDetailComponent },
     { path: 'player/:id', component: PlayerDetailComponent },
-    { path: 'players', component: DashboardComponent }
+    { path: 'players', component: DashboardComponent },
+    { path: '**', redirectTo: '/teams', pathMatch: 'full' }
 ]
 
 @NgModule({

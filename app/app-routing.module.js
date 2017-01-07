@@ -15,11 +15,11 @@ const team_detail_component_1 = require('./components/teams/team-detail/team-det
 const player_detail_component_1 = require('./components/players/player-detail/player-detail.component');
 const dashboard_component_1 = require('./components/dashboard/dashboard.component');
 const routes = [
-    { path: '', redirectTo: '/teams', pathMatch: 'full' },
     { path: 'teams', component: teams_list_component_1.TeamsListComponent },
     { path: 'team/:id', component: team_detail_component_1.TeamDetailComponent },
     { path: 'player/:id', component: player_detail_component_1.PlayerDetailComponent },
-    { path: 'players', component: dashboard_component_1.DashboardComponent }
+    { path: 'players', component: dashboard_component_1.DashboardComponent },
+    { path: '**', redirectTo: '/teams', pathMatch: 'full' }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
